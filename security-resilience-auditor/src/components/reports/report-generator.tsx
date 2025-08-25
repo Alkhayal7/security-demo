@@ -354,12 +354,16 @@ export function ReportGenerator({ selectedSiteId }: ReportGeneratorProps) {
                     <div
                       key={site.id}
                       className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                        isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+                        isSelected 
+                          ? 'border-blue-500 bg-blue-100 shadow-md ring-2 ring-blue-200' 
+                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                       }`}
                       onClick={() => handleSiteToggle(site.id)}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <div className="font-medium text-sm">{site.name}</div>
+                        <div className={`font-medium text-sm ${isSelected ? 'text-blue-900' : 'text-foreground'}`}>
+                          {site.name}
+                        </div>
                         <Badge 
                           variant="outline" 
                           className={`text-xs ${
@@ -372,7 +376,7 @@ export function ReportGenerator({ selectedSiteId }: ReportGeneratorProps) {
                           {testSuite.overallScore}
                         </Badge>
                       </div>
-                      <div className="text-xs text-muted-foreground capitalize">
+                      <div className={`text-xs capitalize ${isSelected ? 'text-blue-700' : 'text-muted-foreground'}`}>
                         {site.infrastructure.type.replace('_', ' ')}
                       </div>
                     </div>
