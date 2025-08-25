@@ -253,10 +253,13 @@ export function TestExecutionPanel({
             const totalProgress = ((currentStep + stepProgress) / steps.length) * 100
             setProgress(totalProgress)
             
-            console.log(`Step ${currentStep + 1}/${steps.length}: ${newElapsed}/${currentStepData.duration}s (${Math.round(stepProgress * 100)}%) - Total: ${Math.round(totalProgress)}%`)
+            console.log(`Step ${currentStep + 1}/${steps.length} (${currentStepData.name}): ${newElapsed}/${currentStepData.duration}s (${Math.round(stepProgress * 100)}%) - Total: ${Math.round(totalProgress)}%`)
 
             // Move to next step when current step is complete
             if (stepProgress >= 1) {
+              const nextStepIndex = currentStep + 1
+              console.log(`Completing step ${currentStep + 1} (${currentStepData.name}), moving to step ${nextStepIndex + 1}`)
+              
               setSteps((prev: ExecutionStep[]) => prev.map((step, index) => {
                 if (index === currentStep) {
                   // Generate realistic score for completed step
@@ -267,23 +270,15 @@ export function TestExecutionPanel({
                     score,
                     details: `Step completed with score: ${score}/100`
                   }
+                } else if (index === nextStepIndex && nextStepIndex < steps.length) {
+                  // Mark next step as running immediately
+                  return { ...step, status: 'running' as const }
                 }
                 return step
               }))
 
-              if (currentStep < steps.length - 1) {
-                setCurrentStep((prev: number) => prev + 1)
-                
-                // Mark next step as running
-                setTimeout(() => {
-                  setSteps((prev: ExecutionStep[]) => prev.map((step, index) => {
-                    if (index === currentStep + 1) {
-                      return { ...step, status: 'running' as const }
-                    }
-                    return step
-                  }))
-                }, 100)
-                
+              if (nextStepIndex < steps.length) {
+                setCurrentStep(nextStepIndex)
                 return 0 // Reset elapsed time for next step
               } else {
                 // Test completed
@@ -328,7 +323,7 @@ export function TestExecutionPanel({
     return () => {
       if (interval) clearInterval(interval)
     }
-  }, [isRunning, isPaused, currentStep])
+  }, [isRunning, isPaused, currentStep, steps])
 
   const generateRecommendations = (test: SecurityTest, score: number): string[] => {
     const recommendations: string[] = []
