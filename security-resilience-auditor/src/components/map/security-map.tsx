@@ -93,12 +93,7 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
     });
   }, [state.sites, state.testSuites]);
 
-  // Memoized selected site for performance
-  const selectedSite = useMemo(() => {
-    return state.selectedSiteId
-      ? state.sites.find((s) => s.id === state.selectedSiteId)
-      : null;
-  }, [state.selectedSiteId, state.sites]);
+  // Note: selectedSite logic is now handled inline in the coverage circles section
 
   // Memoized marker options calculation
   const getMarkerOptions = useCallback(
@@ -259,6 +254,52 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
+        {/* Show coverage areas for all sites first (behind markers) */}
+        {sitesWithScores.map((site) => {
+          const isSelected = state.selectedSiteId === site.id;
+          const resilienceScore = site.computedResilienceScore;
+          
+          // Get color based on resilience score
+          const coverageColor = resilienceScore >= 80 ? "#22c55e" : 
+                               resilienceScore >= 50 ? "#eab308" : "#ef4444";
+          
+          return (
+            <div key={`coverage-${site.id}`}>
+              {/* Coverage area circle for all sites */}
+              <Circle
+                center={[site.location.latitude, site.location.longitude]}
+                radius={2000} // 2km coverage radius
+                pathOptions={{
+                  color: coverageColor,
+                  fillColor: coverageColor,
+                  fillOpacity: isSelected ? 0.25 : 0.15,
+                  weight: isSelected ? 2 : 1,
+                  dashArray: isSelected ? "5, 5" : "10, 10",
+                  opacity: isSelected ? 0.9 : 0.6,
+                  interactive: false, // Prevent interference with marker clicks
+                }}
+              />
+              
+              {/* Additional highlight circle for selected site */}
+              {isSelected && (
+                <Circle
+                  center={[site.location.latitude, site.location.longitude]}
+                  radius={500} // 500m highlight radius
+                  pathOptions={{
+                    color: "#dc2626",
+                    fillColor: "transparent",
+                    weight: 3,
+                    dashArray: "10, 5",
+                    opacity: 0.9,
+                    interactive: false, // Prevent interference with marker clicks
+                  }}
+                />
+              )}
+            </div>
+          );
+        })}
+
+        {/* Render markers on top of coverage areas */}
         {sitesWithScores.map((site) => {
           const markerOptions = getMarkerOptions(site);
           const resilienceScore = site.computedResilienceScore;
@@ -267,12 +308,15 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
             <CircleMarker
               key={site.id}
               center={[site.location.latitude, site.location.longitude]}
-              pathOptions={markerOptions}
+              pathOptions={{
+                ...markerOptions,
+                interactive: true, // Ensure markers are interactive
+              }}
               radius={markerOptions.radius}
               eventHandlers={{
                 click: (e) => {
-                  e.originalEvent.stopPropagation()
-                  actions.selectSite(site.id)
+                  e.originalEvent.stopPropagation();
+                  actions.selectSite(site.id);
                 },
                 mouseover: (e) => {
                   const marker = e.target;
@@ -394,42 +438,7 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
           );
         })}
 
-        {/* Show highlighting circle for selected site - optimized */}
-        {selectedSite && (
-          <>
-            {/* Selection highlight circle */}
-            <Circle
-              center={[
-                selectedSite.location.latitude,
-                selectedSite.location.longitude,
-              ]}
-              radius={500} // 500m highlight radius
-              pathOptions={{
-                color: "#dc2626",
-                fillColor: "transparent",
-                weight: 3,
-                dashArray: "10, 5",
-                opacity: 0.8,
-              }}
-            />
-            {/* Coverage area circle */}
-            <Circle
-              center={[
-                selectedSite.location.latitude,
-                selectedSite.location.longitude,
-              ]}
-              radius={2000} // 2km coverage radius
-              pathOptions={{
-                color: "#dc2626",
-                fillColor: "#dc2626",
-                fillOpacity: 0.05,
-                weight: 1,
-                dashArray: "5, 5",
-                opacity: 0.6,
-              }}
-            />
-          </>
-        )}
+
       </MapContainer>
 
       {/* Fullscreen toggle button */}
@@ -489,19 +498,45 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
           </div>
         </div>
 
-        {state.selectedSiteId && (
-          <div className="pt-2 border-t border-border/50">
-            <h4 className="font-semibold mb-1">Selected Site</h4>
-            <div className="flex items-center gap-2">
+        <div className="pt-2 border-t border-border/50">
+          <h4 className="font-semibold mb-2">Coverage Areas</h4>
+          <div className="space-y-1" role="list">
+            <div className="flex items-center gap-2" role="listitem">
               <div
-                className="w-3 h-1 bg-red-600 rounded"
+                className="w-3 h-1 bg-green-500 rounded opacity-50"
                 style={{ borderStyle: "dashed" }}
                 aria-hidden="true"
               ></div>
-              <span>Coverage Area</span>
+              <span className="text-xs">High Security (2km range)</span>
             </div>
+            <div className="flex items-center gap-2" role="listitem">
+              <div
+                className="w-3 h-1 bg-yellow-500 rounded opacity-50"
+                style={{ borderStyle: "dashed" }}
+                aria-hidden="true"
+              ></div>
+              <span className="text-xs">Medium Security (2km range)</span>
+            </div>
+            <div className="flex items-center gap-2" role="listitem">
+              <div
+                className="w-3 h-1 bg-red-500 rounded opacity-50"
+                style={{ borderStyle: "dashed" }}
+                aria-hidden="true"
+              ></div>
+              <span className="text-xs">Low Security (2km range)</span>
+            </div>
+            {state.selectedSiteId && (
+              <div className="flex items-center gap-2" role="listitem">
+                <div
+                  className="w-3 h-1 bg-red-600 rounded"
+                  style={{ borderStyle: "dashed" }}
+                  aria-hidden="true"
+                ></div>
+                <span className="text-xs">Selected Site Highlight</span>
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         <div className="pt-2 border-t border-border/50 text-muted-foreground">
           <div className="space-y-1">

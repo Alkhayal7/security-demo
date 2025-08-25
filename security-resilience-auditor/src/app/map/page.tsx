@@ -70,7 +70,7 @@ export default function MapPage() {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="relative w-full h-[calc(100vh-8rem)] overflow-hidden">
       {/* Main Map - adjust width based on open panels */}
       <div
         className={`transition-all duration-300 ease-in-out h-full ${
