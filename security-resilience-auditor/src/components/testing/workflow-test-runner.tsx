@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { WorkflowValidator, WorkflowScenario } from '@/lib/workflow-validator'
-import { CheckCircle, XCircle, Clock, Play, RefreshCw, AlertTriangle } from 'lucide-react'
+import { CheckCircle, XCircle, Play, RefreshCw, AlertTriangle } from 'lucide-react'
 
 interface WorkflowTestResult {
   scenario: WorkflowScenario
@@ -37,7 +37,20 @@ export function WorkflowTestRunner() {
 
     try {
       const allResults = await WorkflowValidator.validateAllWorkflows()
-      setResults(allResults.scenarios)
+      // Transform the results to match WorkflowTestResult interface
+      const transformedResults: WorkflowTestResult[] = allResults.scenarios.map((result, index) => ({
+        scenario: WorkflowValidator.getAvailableScenarios()[index] || {
+          id: `scenario-${index}`,
+          name: `Scenario ${index + 1}`,
+          description: 'Workflow scenario',
+          steps: [],
+          expectedDuration: 0,
+          category: 'security' as const,
+          priority: 'medium' as const
+        },
+        validation: result
+      }))
+      setResults(transformedResults)
       setOverallSummary(allResults.overallSummary)
     } catch (error) {
       console.error('Failed to run workflow tests:', error)
@@ -214,7 +227,7 @@ export function WorkflowTestRunner() {
                   <div className="flex items-center gap-2">
                     {getStatusBadge(result.validation.success)}
                     <span className="text-sm text-muted-foreground">
-                      {formatDuration(result.validation.summary.totalDuration)}
+                      {formatDuration(result.validation.totalDuration)}
                     </span>
                   </div>
                 </CardTitle>
@@ -225,19 +238,19 @@ export function WorkflowTestRunner() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-lg font-semibold text-green-600">
-                        {result.validation.summary.passedSteps}
+                        {result.validation.steps.filter(step => step.success).length}
                       </div>
                       <div className="text-xs text-muted-foreground">Passed</div>
                     </div>
                     <div>
                       <div className="text-lg font-semibold text-red-600">
-                        {result.validation.summary.failedSteps}
+                        {result.validation.steps.filter(step => !step.success).length}
                       </div>
                       <div className="text-xs text-muted-foreground">Failed</div>
                     </div>
                     <div>
                       <div className="text-lg font-semibold text-blue-600">
-                        {result.validation.summary.totalSteps}
+                        {result.validation.steps.length}
                       </div>
                       <div className="text-xs text-muted-foreground">Total</div>
                     </div>
@@ -246,11 +259,11 @@ export function WorkflowTestRunner() {
                   {/* Step Results */}
                   <ScrollArea className="h-64">
                     <div className="space-y-2">
-                      {result.validation.results.map((stepResult, index) => (
+                      {result.validation.steps.map((stepResult, index) => (
                         <div
-                          key={stepResult.step.id}
+                          key={stepResult.stepId}
                           className={`p-3 rounded-lg border ${
-                            stepResult.result.success
+                            stepResult.success
                               ? 'bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800'
                               : 'bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800'
                           }`}
@@ -258,29 +271,29 @@ export function WorkflowTestRunner() {
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1">
-                                {getStatusIcon(stepResult.result.success)}
+                                {getStatusIcon(stepResult.success)}
                                 <h5 className="font-medium text-sm">
-                                  {stepResult.step.name}
+                                  {stepResult.stepName}
                                 </h5>
                                 <span className="text-xs text-muted-foreground">
                                   {formatDuration(stepResult.duration)}
                                 </span>
                               </div>
                               <p className="text-xs text-muted-foreground mb-2">
-                                {stepResult.step.description}
+                                Step validation result
                               </p>
                               <p className={`text-xs ${
-                                stepResult.result.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
+                                stepResult.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
                               }`}>
-                                {stepResult.result.message}
+                                {stepResult.success ? 'Step completed successfully' : 'Step failed'}
                               </p>
-                              {stepResult.result.error && (
+                              {stepResult.error && (
                                 <details className="mt-2">
                                   <summary className="text-xs cursor-pointer text-red-600 hover:text-red-800">
                                     Error Details
                                   </summary>
                                   <pre className="text-xs mt-1 p-2 bg-red-100 dark:bg-red-900/20 rounded overflow-x-auto">
-                                    {stepResult.result.error.message}
+                                    {stepResult.error}
                                   </pre>
                                 </details>
                               )}

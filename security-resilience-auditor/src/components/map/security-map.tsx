@@ -55,7 +55,7 @@ interface SecurityMapProps {
   className?: string;
 }
 
-export function SecurityMap({ className = "w-full h-96" }: SecurityMapProps) {
+export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
   const { state, actions } = useSecurityContext();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -270,7 +270,10 @@ export function SecurityMap({ className = "w-full h-96" }: SecurityMapProps) {
               pathOptions={markerOptions}
               radius={markerOptions.radius}
               eventHandlers={{
-                click: () => actions.selectSite(site.id),
+                click: (e) => {
+                  e.originalEvent.stopPropagation()
+                  actions.selectSite(site.id)
+                },
                 mouseover: (e) => {
                   const marker = e.target;
                   marker

@@ -180,7 +180,7 @@ export function TestSelectionPanel({
   }
 
   return (
-    <div className={`fixed right-0 top-0 h-full w-96 bg-background border-l shadow-lg z-40 transform transition-transform duration-300 ${
+    <div className={`fixed right-0 top-0 h-full w-[480px] bg-background border-l shadow-lg z-40 transform transition-transform duration-300 ${
       isOpen ? 'translate-x-0' : 'translate-x-full'
     } ${className}`}>
       <div className="flex flex-col h-full">

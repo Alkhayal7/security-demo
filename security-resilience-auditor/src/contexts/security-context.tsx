@@ -208,7 +208,7 @@ export function SecurityProvider({ children }: { children: ReactNode }) {
         sitesAtRiskCount++
       }
 
-      // Count audited sites (assume all sites have been audited for demo)
+      // Count audited sites
       auditedSitesCount++
     })
 

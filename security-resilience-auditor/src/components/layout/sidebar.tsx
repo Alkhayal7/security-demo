@@ -15,7 +15,6 @@ import {
   ChevronLeft,
   ChevronRight,
   AlertTriangle,
-  Play,
   TestTube,
 } from "lucide-react";
 
@@ -37,12 +36,6 @@ const navigation = [
     href: "/reports",
     icon: FileText,
     description: "Security audit reports",
-  },
-  {
-    name: "Demo Center",
-    href: "/demo",
-    icon: Play,
-    description: "Automated presentation demos",
   },
   {
     name: "Testing",
