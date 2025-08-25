@@ -1,0 +1,321 @@
+[
+  {
+    "id": "MCX1",
+    "name": "King Abdulaziz Medical City",
+    "location": {
+      "latitude": 21.5249,
+      "longitude": 39.1962,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "hospital",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 62,
+      "lastAuditDate": "2024-12-15T10:30:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.4.1",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "PKI",
+        "firewallRules": ["ALLOW_EMERGENCY", "BLOCK_EXTERNAL"],
+        "accessControlPolicies": ["RBAC_MEDICAL", "MFA_REQUIRED"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX2",
+    "name": "Jeddah Emergency Operations Center",
+    "location": {
+      "latitude": 21.4858,
+      "longitude": 39.1925,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "emergency_services",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 78,
+      "lastAuditDate": "2024-12-10T14:20:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.5.0",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "PKI",
+        "firewallRules": ["ALLOW_EMERGENCY", "ALLOW_GOVERNMENT"],
+        "accessControlPolicies": ["RBAC_EMERGENCY", "MFA_REQUIRED"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX3",
+    "name": "Jeddah Power Distribution Hub",
+    "location": {
+      "latitude": 21.4225,
+      "longitude": 39.2637,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "power_plant",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 49,
+      "lastAuditDate": "2024-12-08T09:15:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.3.2",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "Certificate",
+        "firewallRules": ["ALLOW_UTILITY", "BLOCK_EXTERNAL"],
+        "accessControlPolicies": ["RBAC_UTILITY", "TIME_BASED_ACCESS"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX4",
+    "name": "King Abdulaziz International Airport",
+    "location": {
+      "latitude": 21.6796,
+      "longitude": 39.1564,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "government",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 59,
+      "lastAuditDate": "2024-12-12T16:45:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.4.3",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "PKI",
+        "firewallRules": ["ALLOW_AVIATION", "ALLOW_SECURITY"],
+        "accessControlPolicies": ["RBAC_AVIATION", "BIOMETRIC_AUTH"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX5",
+    "name": "Jeddah Islamic Port Authority",
+    "location": {
+      "latitude": 21.4667,
+      "longitude": 39.1833,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "government",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 55,
+      "lastAuditDate": "2024-12-09T11:30:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.4.0",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "PKI",
+        "firewallRules": ["ALLOW_MARITIME", "ALLOW_CUSTOMS"],
+        "accessControlPolicies": ["RBAC_PORT", "MFA_REQUIRED"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX6",
+    "name": "Jeddah Central Fire Station",
+    "location": {
+      "latitude": 21.5433,
+      "longitude": 39.1728,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "emergency_services",
+      "criticality": "medium"
+    },
+    "security": {
+      "resilienceScore": 56,
+      "lastAuditDate": "2024-12-11T08:20:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.3.5",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "Certificate",
+        "firewallRules": ["ALLOW_EMERGENCY", "BLOCK_EXTERNAL"],
+        "accessControlPolicies": ["RBAC_FIRE", "LOCATION_BASED"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX7",
+    "name": "Jeddah Industrial District Hub",
+    "location": {
+      "latitude": 21.3891,
+      "longitude": 39.2456,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "other",
+      "criticality": "medium"
+    },
+    "security": {
+      "resilienceScore": 52,
+      "lastAuditDate": "2024-12-07T13:10:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.2.8",
+      "securitySettings": {
+        "encryptionEnabled": false,
+        "authenticationMethod": "Password",
+        "firewallRules": ["ALLOW_INDUSTRIAL"],
+        "accessControlPolicies": ["BASIC_AUTH"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX8",
+    "name": "King Fahd General Hospital",
+    "location": {
+      "latitude": 21.5180,
+      "longitude": 39.2103,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "hospital",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 69,
+      "lastAuditDate": "2024-12-13T15:25:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.4.2",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "PKI",
+        "firewallRules": ["ALLOW_MEDICAL", "ALLOW_EMERGENCY"],
+        "accessControlPolicies": ["RBAC_MEDICAL", "AUDIT_LOGGING"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX9",
+    "name": "Jeddah Municipality Center",
+    "location": {
+      "latitude": 21.4994,
+      "longitude": 39.1869,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "government",
+      "criticality": "medium"
+    },
+    "security": {
+      "resilienceScore": 51,
+      "lastAuditDate": "2024-12-06T10:45:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.3.1",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "Certificate",
+        "firewallRules": ["ALLOW_GOVERNMENT", "BLOCK_EXTERNAL"],
+        "accessControlPolicies": ["RBAC_MUNICIPAL", "TIME_BASED_ACCESS"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX10",
+    "name": "Jeddah Police Headquarters",
+    "location": {
+      "latitude": 21.5125,
+      "longitude": 39.1756,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "emergency_services",
+      "criticality": "high"
+    },
+    "security": {
+      "resilienceScore": 73,
+      "lastAuditDate": "2024-12-14T12:00:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.5.1",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "PKI",
+        "firewallRules": ["ALLOW_LAW_ENFORCEMENT", "ALLOW_EMERGENCY"],
+        "accessControlPolicies": ["RBAC_POLICE", "BIOMETRIC_AUTH"]
+      },
+      "networkTopology": []
+    }
+  },
+  {
+    "id": "MCX11",
+    "name": "Jeddah Corniche Communications Hub",
+    "location": {
+      "latitude": 21.5269,
+      "longitude": 39.1538,
+      "city": "Jeddah",
+      "region": "Makkah"
+    },
+    "infrastructure": {
+      "type": "other",
+      "criticality": "low"
+    },
+    "security": {
+      "resilienceScore": 65,
+      "lastAuditDate": "2024-12-05T14:30:00Z",
+      "vulnerabilities": []
+    },
+    "technical": {
+      "firmwareVersion": "v2.4.1",
+      "securitySettings": {
+        "encryptionEnabled": true,
+        "authenticationMethod": "Certificate",
+        "firewallRules": ["ALLOW_PUBLIC", "RATE_LIMIT"],
+        "accessControlPolicies": ["RBAC_PUBLIC", "GUEST_ACCESS"]
+      },
+      "networkTopology": []
+    }
+  }
+]

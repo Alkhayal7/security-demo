@@ -1,0 +1,245 @@
+[
+  {
+    "id": "jamming-ssb-pbch-prach",
+    "name": "Jamming SSB/PBCH/PRACH",
+    "category": "jamming",
+    "description": "Tests resilience against jamming attacks on Synchronization Signal Block (SSB), Physical Broadcast Channel (PBCH), and Physical Random Access Channel (PRACH)",
+    "severity": "critical",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "jammingPower",
+        "type": "number",
+        "defaultValue": -80,
+        "description": "Jamming signal power in dBm",
+        "required": true
+      },
+      {
+        "name": "frequency",
+        "type": "select",
+        "defaultValue": "3.5GHz",
+        "options": ["3.5GHz", "28GHz", "39GHz"],
+        "description": "Target frequency band",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "prach-flooding",
+    "name": "PRACH Flooding",
+    "category": "flooding",
+    "description": "Simulates Physical Random Access Channel flooding attacks to test system capacity limits",
+    "severity": "high",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "requestRate",
+        "type": "number",
+        "defaultValue": 1000,
+        "description": "Access requests per second",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "defaultValue": 60,
+        "description": "Attack duration in seconds",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "gnss-jamming",
+    "name": "GNSS Jamming",
+    "category": "jamming",
+    "description": "Tests resilience against Global Navigation Satellite System jamming attacks",
+    "severity": "high",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "jammingType",
+        "type": "select",
+        "defaultValue": "broadband",
+        "options": ["broadband", "narrowband", "swept"],
+        "description": "Type of jamming signal",
+        "required": true
+      },
+      {
+        "name": "signalStrength",
+        "type": "number",
+        "defaultValue": -100,
+        "description": "Jamming signal strength in dBm",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "gnss-spoofing",
+    "name": "GNSS Spoofing",
+    "category": "spoofing",
+    "description": "Simulates fake GNSS signals to test timing and positioning security",
+    "severity": "critical",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "spoofedLocation",
+        "type": "string",
+        "defaultValue": "21.4858,39.1925",
+        "description": "Fake GPS coordinates (lat,lng)",
+        "required": true
+      },
+      {
+        "name": "timeOffset",
+        "type": "number",
+        "defaultValue": 0,
+        "description": "Time offset in seconds",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "beamforming-exploits",
+    "name": "Beamforming Exploits",
+    "category": "manipulation",
+    "description": "Tests vulnerabilities in beamforming algorithms and antenna array configurations",
+    "severity": "medium",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "antennaPattern",
+        "type": "select",
+        "defaultValue": "uniform",
+        "options": ["uniform", "random", "targeted"],
+        "description": "Antenna array pattern to exploit",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "replay-injection",
+    "name": "Replay / Injection",
+    "category": "injection",
+    "description": "Tests system resilience against replay attacks and malicious packet injection",
+    "severity": "high",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "packetType",
+        "type": "select",
+        "defaultValue": "control",
+        "options": ["control", "data", "signaling"],
+        "description": "Type of packets to replay/inject",
+        "required": true
+      },
+      {
+        "name": "injectionRate",
+        "type": "number",
+        "defaultValue": 100,
+        "description": "Packets per second",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "rogue-gnb",
+    "name": "Rogue gNB",
+    "category": "spoofing",
+    "description": "Detects and tests resilience against rogue 5G base stations (gNodeB)",
+    "severity": "critical",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "cellId",
+        "type": "number",
+        "defaultValue": 12345,
+        "description": "Fake cell identifier",
+        "required": true
+      },
+      {
+        "name": "transmitPower",
+        "type": "number",
+        "defaultValue": 20,
+        "description": "Rogue gNB transmit power in dBm",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "forged-nas-rrc",
+    "name": "Forged NAS/RRC",
+    "category": "injection",
+    "description": "Tests detection of forged Non-Access Stratum and Radio Resource Control messages",
+    "severity": "high",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "messageType",
+        "type": "select",
+        "defaultValue": "authentication",
+        "options": ["authentication", "registration", "session"],
+        "description": "Type of NAS/RRC message to forge",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "packet-manipulation",
+    "name": "Packet Manipulation",
+    "category": "manipulation",
+    "description": "Tests detection and mitigation of packet modification attacks",
+    "severity": "medium",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "manipulationType",
+        "type": "select",
+        "defaultValue": "header",
+        "options": ["header", "payload", "both"],
+        "description": "Part of packet to manipulate",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "tunneling-misuse",
+    "name": "Tunneling Misuse",
+    "category": "manipulation",
+    "description": "Tests detection of unauthorized tunneling and protocol abuse",
+    "severity": "medium",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "tunnelProtocol",
+        "type": "select",
+        "defaultValue": "GTP",
+        "options": ["GTP", "IPSec", "L2TP"],
+        "description": "Tunneling protocol to abuse",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "flooding-upf",
+    "name": "Flooding UPF",
+    "category": "flooding",
+    "description": "Tests User Plane Function resilience against flooding attacks",
+    "severity": "high",
+    "estimatedDuration": 30,
+    "parameters": [
+      {
+        "name": "sessionRate",
+        "type": "number",
+        "defaultValue": 500,
+        "description": "New sessions per second",
+        "required": true
+      },
+      {
+        "name": "dataRate",
+        "type": "number",
+        "defaultValue": 1000,
+        "description": "Data rate in Mbps",
+        "required": true
+      }
+    ]
+  }
+]
