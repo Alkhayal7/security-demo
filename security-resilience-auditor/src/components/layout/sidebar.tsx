@@ -74,8 +74,8 @@ export function Sidebar({ className }: SidebarProps) {
   return (
     <div
       className={cn(
-        "flex flex-col border-r bg-background transition-all duration-300",
-        collapsed ? "w-16" : "w-64",
+        "flex flex-col border-r bg-background transition-all duration-300 overflow-hidden",
+        collapsed ? "w-16" : "w-80",
         className
       )}
       role="navigation"
@@ -104,10 +104,10 @@ export function Sidebar({ className }: SidebarProps) {
         </Button>
       </div>
 
-      <ScrollArea className="flex-1 px-3 py-4">
+      <ScrollArea className="flex-1 px-4 py-4 overflow-x-hidden">
         <nav 
           ref={navRef}
-          className="space-y-2"
+          className="space-y-2 pr-2"
           role="list"
           aria-label="Navigation menu"
         >
@@ -118,7 +118,7 @@ export function Sidebar({ className }: SidebarProps) {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                  "flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none",
                   isActive
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground",

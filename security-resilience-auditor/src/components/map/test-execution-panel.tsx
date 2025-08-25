@@ -234,13 +234,25 @@ export function TestExecutionPanel({
               
               setSteps((prev: ExecutionStep[]) => prev.map((step, index) => {
                 if (index === currentStep) {
-                  // Generate realistic score for completed step
-                  const score = Math.floor(Math.random() * 40) + 60 // 60-100 range
-                  return {
-                    ...step,
-                    status: 'completed' as const,
-                    score,
-                    details: `Step completed with score: ${score}/100`
+                  // Determine if this step should have a score
+                  const shouldHaveScore = !['init', 'baseline', 'analysis'].includes(step.id)
+                  
+                  if (shouldHaveScore) {
+                    // Generate realistic score for security test steps
+                    const score = Math.floor(Math.random() * 40) + 60 // 60-100 range
+                    return {
+                      ...step,
+                      status: 'completed' as const,
+                      score,
+                      details: `Step completed with score: ${score}/100`
+                    }
+                  } else {
+                    // Setup/analysis steps just show completion
+                    return {
+                      ...step,
+                      status: 'completed' as const,
+                      details: 'Step completed successfully'
+                    }
                   }
                 } else if (index === nextStepIndex && nextStepIndex < steps.length) {
                   // Mark next step as running immediately
