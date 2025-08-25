@@ -422,15 +422,7 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
                       <span>{site.technical.firmwareVersion}</span>
                     </div>
 
-                    <div className="pt-2 border-t">
-                      <Button
-                        size="sm"
-                        className="w-full"
-                        onClick={() => actions.selectSite(site.id)}
-                      >
-                        View Details & Run Tests
-                      </Button>
-                    </div>
+
                   </div>
                 </div>
               </Popup>
