@@ -272,10 +272,10 @@ export function SecurityMap({ className = "w-full h-full" }: SecurityMapProps) {
                 pathOptions={{
                   color: coverageColor,
                   fillColor: coverageColor,
-                  fillOpacity: isSelected ? 0.25 : 0.15,
+                  fillOpacity: isSelected ? 0.4 : 0.25,
                   weight: isSelected ? 2 : 1,
                   dashArray: isSelected ? "5, 5" : "10, 10",
-                  opacity: isSelected ? 0.9 : 0.6,
+                  opacity: isSelected ? 1.0 : 0.8,
                   interactive: false, // Prevent interference with marker clicks
                 }}
               />
