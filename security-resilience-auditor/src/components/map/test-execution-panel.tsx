@@ -398,7 +398,7 @@ export function TestExecutionPanel({
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'running': return <Activity className="h-4 w-4 text-blue-600 animate-pulse" />
+      case 'running': return <Activity className="h-4 w-4 text-blue-600 animate-spin" style={{ animationDuration: '2s' }} />
       case 'completed': return <CheckCircle className="h-4 w-4 text-green-600" />
       case 'failed': return <XCircle className="h-4 w-4 text-red-600" />
       default: return <Clock className="h-4 w-4 text-muted-foreground" />
@@ -416,10 +416,10 @@ export function TestExecutionPanel({
   const estimatedTimeRemaining = Math.max(0, totalDuration - (currentStep * (totalDuration / steps.length)) - elapsedTime)
 
   return (
-    <div className={`fixed right-0 top-0 h-full w-96 bg-background border-l shadow-lg z-40 transform transition-transform duration-300 ${
+    <div className={`fixed right-0 top-0 h-full w-[480px] bg-background border-l shadow-lg z-40 transform transition-transform duration-300 overflow-hidden ${
       isOpen ? 'translate-x-0' : 'translate-x-full'
-    } ${className}`}>
-      <div className="flex flex-col h-full">
+    } ${className}`} style={{ contain: 'layout style paint' }}>
+      <div className="flex flex-col h-full overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
           <div>
@@ -484,9 +484,9 @@ export function TestExecutionPanel({
 
             {/* Current step indicator */}
             {isRunning && steps[currentStep] && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-800 animate-in slide-in-from-top duration-300">
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mx-1 border border-blue-200 dark:border-blue-800 animate-in slide-in-from-top duration-300">
                 <div className="flex items-center gap-2 mb-1">
-                  <Activity className="h-4 w-4 text-blue-600 animate-pulse" />
+                  <Activity className="h-4 w-4 text-blue-600 animate-spin" style={{ animationDuration: '2s' }} />
                   <span className="text-sm font-medium text-blue-900 dark:text-blue-100">
                     {steps[currentStep].name}
                   </span>
@@ -528,15 +528,15 @@ export function TestExecutionPanel({
         </div>
 
         {/* Test Steps */}
-        <ScrollArea className="flex-1 p-4">
-          <div className="space-y-3">
+        <ScrollArea className="flex-1 px-2 py-4 overflow-x-hidden">
+          <div className="space-y-3 px-2">
             <h3 className="text-sm font-medium mb-3">Test Steps</h3>
             {steps.map((step, index) => (
               <Card 
                 key={step.id} 
-                className={`transition-all duration-300 ${
+                className={`transition-all duration-300 mx-2 ${
                   index === currentStep && isRunning 
-                    ? 'ring-2 ring-blue-500 shadow-lg scale-105 security-test-running' 
+                    ? 'ring-2 ring-inset ring-blue-500 shadow-md bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' 
                     : step.status === 'completed'
                     ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
                     : step.status === 'failed'
@@ -594,8 +594,8 @@ export function TestExecutionPanel({
 
         {/* Final Results */}
         {finalResult && (
-          <div className="p-4 border-t bg-muted/30 animate-in slide-in-from-bottom duration-500">
-            <div className="space-y-4">
+          <div className="p-4 border-t bg-muted/30 animate-in slide-in-from-bottom duration-500 overflow-hidden">
+            <div className="space-y-4 mx-1">
               <SecurityScoreProgress
                 score={finalResult.score}
                 maxScore={100}
