@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, ReactNode } from 'react'
-import { performanceMonitor } from '@/lib/performance-monitor'
+import { createContext, useContext, useEffect, ReactNode } from 'react'
+import { performanceMonitor } from '../lib/performance-monitor'
 
 interface PerformanceProviderProps {
   children: ReactNode

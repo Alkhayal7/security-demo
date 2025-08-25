@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { SecurityDataManager } from '@/lib/security-data'
-import { ReportUtils } from '@/lib/report-utils'
-import { PDFExportUtils } from '@/lib/pdf-export'
+import { SecurityDataManager } from '../../lib/security-data'
+import { ReportUtils } from '../../lib/report-utils'
+import { PDFExportUtils } from '../../lib/pdf-export'
 import { TestReport } from './test-report'
 import { Download, FileText, Printer, Share2, Filter, Calendar, MapPin, Building2, FileDown, FileSpreadsheet } from 'lucide-react'
 

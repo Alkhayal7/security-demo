@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { SecurityTest, TestResult } from '@/types/security-types'
 import { SiteDetailsPanel } from './site-details-panel'
 import { TestSelectionPanel } from './test-selection-panel'
 import { TestExecutionPanel } from './test-execution-panel'
 import { useSecurityContext } from '@/contexts/security-context'
-import { SecurityDataManager } from '@/lib/security-data'
+import { SecurityDataManager } from '../../lib/security-data'
 
 interface TestRunnerProps {
   onSiteDeselect?: () => void
