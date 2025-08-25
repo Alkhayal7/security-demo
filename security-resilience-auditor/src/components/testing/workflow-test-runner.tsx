@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { WorkflowValidator, WorkflowScenario } from '@/lib/workflow-validator'
+import { WorkflowValidator, WorkflowScenario } from '../../lib/workflow-validator'
 import { CheckCircle, XCircle, Play, RefreshCw, AlertTriangle } from 'lucide-react'
 
 interface WorkflowTestResult {

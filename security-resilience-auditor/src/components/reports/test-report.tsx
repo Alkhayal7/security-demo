@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { SecurityTestSuite, MCXSite } from '@/types/security-types'
-import { SecurityDataManager } from '@/lib/security-data'
+import { SecurityDataManager } from '../../lib/security-data'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, PieChart, Pie, Cell } from 'recharts'
 import { AlertTriangle, Shield, CheckCircle, XCircle, Clock, MapPin, Building } from 'lucide-react'
 

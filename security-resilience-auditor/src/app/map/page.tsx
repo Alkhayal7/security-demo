@@ -6,7 +6,7 @@ import { SiteDetailsPanel } from "@/components/map/site-details-panel";
 import { TestSelectionPanel } from "@/components/map/test-selection-panel";
 import { TestExecutionPanel } from "@/components/map/test-execution-panel";
 import { useSecurityContext } from "@/contexts/security-context";
-import { SecurityDataManager } from "@/lib/security-data";
+import { SecurityDataManager } from "../../lib/security-data";
 import { SecurityTest, TestResult } from "@/types/security-types";
 
 export default function MapPage() {

@@ -3,10 +3,10 @@
 import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useKeyboardNavigation, useAnnouncer } from "@/lib/accessibility-utils";
+import { useKeyboardNavigation, useAnnouncer } from "../../lib/accessibility-utils";
 import {
   LayoutDashboard,
   MapPin,

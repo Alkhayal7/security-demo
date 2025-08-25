@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { MCXSite } from "@/types/security-types";
 import { useSecurityContext } from "@/contexts/security-context";
-import { useAnnouncer, useFocusTrap } from "@/lib/accessibility-utils";
+import { useAnnouncer, useFocusTrap } from "../../lib/accessibility-utils";
 
 // Dynamically import map components with loading states and preloading
 const MapContainer = dynamic(

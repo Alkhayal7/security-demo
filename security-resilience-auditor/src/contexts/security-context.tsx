@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react'
-import { SecurityDataManager } from '@/lib/security-data'
+import { SecurityDataManager } from '../lib/security-data'
 import { 
   MCXSite, 
   SecurityKPIData, 
