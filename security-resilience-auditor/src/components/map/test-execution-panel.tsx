@@ -70,15 +70,15 @@ export function TestExecutionPanel({
     const baseSteps = [
       {
         id: 'init',
-        name: 'Initializing Test Environment',
-        description: 'Setting up test parameters and connecting to target site',
+        name: 'Deploying Digital Twin',
+        description: 'Creating secure digital twin simulation environment based on target site configuration',
         duration: Math.max(2, Math.floor(totalDuration * 0.15)), // At least 2 seconds
         status: 'pending' as const
       },
       {
         id: 'baseline',
         name: 'Establishing Baseline',
-        description: 'Measuring normal system performance and security metrics',
+        description: 'Measuring normal system performance and security metrics in simulation',
         duration: Math.max(3, Math.floor(totalDuration * 0.2)), // At least 3 seconds
         status: 'pending' as const
       }
@@ -93,14 +93,14 @@ export function TestExecutionPanel({
           {
             id: 'signal_analysis',
             name: 'Signal Analysis',
-            description: 'Analyzing target signal characteristics and vulnerabilities',
+            description: 'Analyzing simulated signal characteristics and vulnerability patterns in digital twin',
             duration: Math.max(4, Math.floor(totalDuration * 0.25)), // At least 4 seconds
             status: 'pending' as const
           },
           {
             id: 'jamming_execution',
             name: 'Jamming Attack Simulation',
-            description: 'Executing controlled jamming attack with specified parameters',
+            description: 'Executing controlled jamming attack simulation in isolated digital twin environment',
             duration: Math.max(5, Math.floor(totalDuration * 0.3)), // At least 5 seconds
             status: 'pending' as const
           }
@@ -111,14 +111,14 @@ export function TestExecutionPanel({
           {
             id: 'capacity_analysis',
             name: 'Capacity Analysis',
-            description: 'Analyzing system capacity limits and thresholds',
+            description: 'Analyzing simulated system capacity limits and performance thresholds',
             duration: Math.max(3, Math.floor(totalDuration * 0.2)), // At least 3 seconds
             status: 'pending' as const
           },
           {
             id: 'flood_simulation',
-            name: 'Flooding Attack',
-            description: 'Simulating high-volume request flooding',
+            name: 'Flooding Attack Simulation',
+            description: 'Simulating high-volume request flooding in controlled digital twin environment',
             duration: Math.max(6, Math.floor(totalDuration * 0.35)), // At least 6 seconds
             status: 'pending' as const
           }
@@ -129,14 +129,14 @@ export function TestExecutionPanel({
           {
             id: 'identity_analysis',
             name: 'Identity Analysis',
-            description: 'Analyzing authentication and identity verification systems',
+            description: 'Analyzing simulated authentication and identity verification systems',
             duration: Math.max(4, Math.floor(totalDuration * 0.25)), // At least 4 seconds
             status: 'pending' as const
           },
           {
             id: 'spoofing_attempt',
-            name: 'Spoofing Simulation',
-            description: 'Attempting to spoof legitimate system identity',
+            name: 'Spoofing Attack Simulation',
+            description: 'Testing spoofing attack vectors against digital twin identity systems',
             duration: Math.max(5, Math.floor(totalDuration * 0.3)), // At least 5 seconds
             status: 'pending' as const
           }
@@ -147,14 +147,14 @@ export function TestExecutionPanel({
           {
             id: 'payload_preparation',
             name: 'Payload Preparation',
-            description: 'Preparing test payloads and injection vectors',
+            description: 'Preparing test payloads and injection vectors for digital twin testing',
             duration: Math.max(4, Math.floor(totalDuration * 0.25)), // At least 4 seconds
             status: 'pending' as const
           },
           {
             id: 'injection_test',
-            name: 'Injection Attack',
-            description: 'Executing controlled injection attack',
+            name: 'Injection Attack Simulation',
+            description: 'Executing controlled injection attack simulation in isolated environment',
             duration: Math.max(5, Math.floor(totalDuration * 0.3)), // At least 5 seconds
             status: 'pending' as const
           }
@@ -165,14 +165,14 @@ export function TestExecutionPanel({
           {
             id: 'traffic_analysis',
             name: 'Traffic Analysis',
-            description: 'Analyzing network traffic patterns and protocols',
+            description: 'Analyzing simulated network traffic patterns and protocol vulnerabilities',
             duration: Math.max(4, Math.floor(totalDuration * 0.25)), // At least 4 seconds
             status: 'pending' as const
           },
           {
             id: 'manipulation_test',
-            name: 'Data Manipulation',
-            description: 'Testing data integrity and manipulation detection',
+            name: 'Data Manipulation Simulation',
+            description: 'Testing data integrity and manipulation detection in digital twin environment',
             duration: Math.max(5, Math.floor(totalDuration * 0.3)), // At least 5 seconds
             status: 'pending' as const
           }
@@ -184,7 +184,7 @@ export function TestExecutionPanel({
       {
         id: 'analysis',
         name: 'Results Analysis',
-        description: 'Analyzing test results and calculating security scores',
+        description: 'Analyzing simulation results and calculating security resilience scores',
         duration: Math.max(2, Math.floor(totalDuration * 0.1)), // At least 2 seconds
         status: 'pending' as const
       }
@@ -208,35 +208,7 @@ export function TestExecutionPanel({
     }
   }, [test, generateTestSteps])
 
-  const completeTest = useCallback(() => {
-    setIsRunning(false)
-    setProgress(100)
-    
-    if (test && site) {
-      // Calculate overall score based on step scores - use current steps state
-      setSteps(currentSteps => {
-        const completedSteps = currentSteps.filter(step => step.score !== undefined)
-        const averageScore = completedSteps.length > 0 
-          ? Math.floor(completedSteps.reduce((sum, step) => sum + (step.score || 0), 0) / completedSteps.length)
-          : 75
 
-        const result: TestResult = {
-          testId: test.id,
-          siteId: site.id,
-          score: averageScore,
-          status: averageScore >= 80 ? 'passed' : averageScore >= 60 ? 'warning' : 'failed',
-          timestamp: new Date().toISOString(),
-          details: `Test completed with overall score: ${averageScore}/100`,
-          recommendations: generateRecommendations(test, averageScore)
-        }
-
-        setFinalResult(result)
-        onTestComplete(result)
-        
-        return currentSteps // Return unchanged steps
-      })
-    }
-  }, [test, site, onTestComplete])
 
   // Simulation timer
   useEffect(() => {
@@ -329,32 +301,44 @@ export function TestExecutionPanel({
     const recommendations: string[] = []
     
     if (score < 60) {
-      recommendations.push('Immediate security hardening required')
-      recommendations.push('Review and update security policies')
+      recommendations.push('Critical vulnerabilities detected in simulation - immediate action required')
+      recommendations.push('Deploy security patches to production environment')
     }
     
     if (score < 80) {
-      recommendations.push('Consider implementing additional security measures')
-      recommendations.push('Schedule regular security assessments')
+      recommendations.push('Simulation reveals potential security gaps - enhance defenses')
+      recommendations.push('Schedule regular digital twin security assessments')
     }
 
     switch (test.category) {
       case 'jamming':
         if (score < 70) {
-          recommendations.push('Implement anti-jamming techniques')
-          recommendations.push('Deploy frequency hopping mechanisms')
+          recommendations.push('Deploy anti-jamming countermeasures based on simulation results')
+          recommendations.push('Implement frequency hopping and signal diversity')
         }
         break
       case 'flooding':
         if (score < 70) {
-          recommendations.push('Implement rate limiting')
-          recommendations.push('Deploy DDoS protection mechanisms')
+          recommendations.push('Strengthen rate limiting based on capacity analysis')
+          recommendations.push('Deploy adaptive DDoS protection mechanisms')
         }
         break
       case 'spoofing':
         if (score < 70) {
-          recommendations.push('Strengthen authentication mechanisms')
-          recommendations.push('Implement certificate pinning')
+          recommendations.push('Enhance authentication protocols per simulation findings')
+          recommendations.push('Implement multi-factor authentication and certificate validation')
+        }
+        break
+      case 'injection':
+        if (score < 70) {
+          recommendations.push('Strengthen input validation and sanitization')
+          recommendations.push('Deploy advanced intrusion detection systems')
+        }
+        break
+      case 'manipulation':
+        if (score < 70) {
+          recommendations.push('Implement data integrity monitoring')
+          recommendations.push('Deploy cryptographic data protection mechanisms')
         }
         break
     }
@@ -451,7 +435,7 @@ export function TestExecutionPanel({
         <div className="p-4 border-b">
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Target Site:</span>
+              <span className="text-muted-foreground">Digital Twin of:</span>
               <span className="font-medium">{site.name}</span>
             </div>
             <div className="flex items-center justify-between text-sm">
@@ -461,8 +445,14 @@ export function TestExecutionPanel({
               </Badge>
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Estimated Duration:</span>
+              <span className="text-muted-foreground">Simulation Duration:</span>
               <span className="font-mono">{Math.floor(totalDuration / 60)}m {totalDuration % 60}s</span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Environment:</span>
+              <Badge variant="secondary" className="text-xs">
+                🔒 Isolated Digital Twin
+              </Badge>
             </div>
           </div>
         </div>
